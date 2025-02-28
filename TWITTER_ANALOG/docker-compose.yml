@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: development
+      DATABASE_URL: postgresql://user:user@db/twitter
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      DATABASE_NAME: twitter
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+
+volumes:
+  postgres_data:

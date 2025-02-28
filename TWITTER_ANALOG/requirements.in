@@ -1,0 +1,9 @@
+pip
+flask==2.3.0
+flask-sqlalchemy
+psycopg2
+pytest
+apispec-webframeworks
+apispec
+flasgger==0.9.7b2
+werkzeug==2.3.0
